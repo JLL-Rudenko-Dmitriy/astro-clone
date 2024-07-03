@@ -33,12 +33,12 @@ async def time(bot: Client, callback_query: CallbackQuery):
         if ':' in value:
             hour, minute = value.split(':')
             
-            if len(str(hour)) == 2 and 0 < int(hour) <= 23:
+            if len(str(hour)) in [1, 2] and 0 < int(hour) <= 23:
                 await db.update_user_hour(user_id, hour)
             else:
                 await db.update_user_hour(user_id, None)
             
-            if len(str(minute)) == 2 and 0 < int(minute) <= 59:
+            if len(str(minute)) in [1, 2] and 0 < int(minute) <= 59:
                 await db.update_user_minute(user_id, minute)
             else:
                 await db.update_user_minute(user_id, None)    

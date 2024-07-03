@@ -50,5 +50,5 @@ async def confirm(bot: Client, callback_query: CallbackQuery):
     await callback_query.message.delete()
     
     from handlers.private.warmings import warmings
-    await warmings(bot, callback_query)
+    asyncio.create_task(warmings(bot, callback_query))
     

@@ -31,12 +31,14 @@ async def warmings(bot: Client, callback_query: CallbackQuery):
     
     tz = pytz.timezone('Europe/Moscow')
     
+    interval_seconds = 3 * 60 * 60
+    
     while True:
         current_time = datetime.now(tz)
         current_hour = current_time.hour
         
         if current_hour >= 9:
-            await asyncio.sleep(3 * 60 * 60)
+            await asyncio.sleep(interval_seconds)
             
             user_data = await db.get_user_data(user_id)
             payment_id = user_data.get('payment_id')               
@@ -54,7 +56,7 @@ async def warmings(bot: Client, callback_query: CallbackQuery):
             else:    
                 break
                 
-            await asyncio.sleep(3 * 60 * 60)
+            await asyncio.sleep(interval_seconds)
 
             payment_id = await db.get_user_payment_id(user_id)
             
@@ -68,7 +70,7 @@ async def warmings(bot: Client, callback_query: CallbackQuery):
             else:
                 break
 
-            await asyncio.sleep(3 * 60 * 60)
+            await asyncio.sleep(interval_seconds)
 
             payment_id = await db.get_user_payment_id(user_id)
 
@@ -82,7 +84,7 @@ async def warmings(bot: Client, callback_query: CallbackQuery):
             else:
                 break
 
-            await asyncio.sleep(3 * 60 * 60)
+            await asyncio.sleep(interval_seconds)
 
             payment_id = await db.get_user_payment_id(user_id)
 
@@ -91,7 +93,7 @@ async def warmings(bot: Client, callback_query: CallbackQuery):
                     await bot.send_photo(
                         chat_id=user_id,
                         photo='./photos/8.jpg',
-                        caption=get_string('warming_3 * 60 * 60').format(
+                        caption=get_string('warming_3').format(
                             day=format_day,
                             month=format_month,
                             year=user_year

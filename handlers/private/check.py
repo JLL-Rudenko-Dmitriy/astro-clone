@@ -24,7 +24,10 @@ async def check(bot: Client, message: Message):
     minute = user_data.get('minute')
     city = user_data.get('city')
     
-    time = f'{hour}:{minute}' if hour and minute else '—'
+    format_hour = f'0{hour}' if len(str(hour)) == 1 else hour
+    format_minute =  f'0{minute}' if len(str(minute)) == 1 else minute
+    
+    time = f'{format_hour}:{format_minute}' if hour and minute else '—'
     format_day = f'0{day}' if len(str(day)) == 1 else day
     format_month = f'0{month}' if len(str(month)) == 1 else month
     format_gender = 'Мужчина' if gender == 1 else 'Девушка'
