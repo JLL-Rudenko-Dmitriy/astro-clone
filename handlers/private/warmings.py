@@ -1,4 +1,4 @@
-from pyrogram import Client
+from pyrogram import Client, errors
 from pyrogram.types import CallbackQuery
 
 from pyrostep.shortcuts import inlinekeyboard
@@ -47,12 +47,15 @@ async def warmings(bot: Client, callback_query: CallbackQuery):
             markup = inlinekeyboard([[['👉 Получить расшифровку', payment_url, 'url']]])
             
             if not await yk.payment_is_paid(payment_id):
-                await bot.send_photo(
-                    chat_id=user_id,
-                    photo='./photos/5.jpg',
-                    caption=get_string('warming_0'),
-                    reply_markup=markup
-                )
+                try:
+                    await bot.send_photo(         
+                        chat_id=user_id,
+                        photo='./photos/5.jpg',
+                        caption=get_string('warming_0'),
+                        reply_markup=markup
+                    )
+                except errors.UserIsBlocked:
+                    break
             else:    
                 break
                 
